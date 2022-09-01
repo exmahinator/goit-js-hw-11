@@ -1,0 +1,71 @@
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.search-form {
+  position: fixed;
+  display: flex;
+
+  height: 20px;
+  width: 100%;
+
+  padding: 15px;
+
+  background-color: rgb(0, 255, 255, 0.3);
+
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4.5px);
+  -webkit-backdrop-filter: blur(4.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  justify-content: center;
+}
+
+.gallery {
+  padding-top: 75px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.photo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  max-width: calc((100% - 90px) / 4);
+  padding-top: 0;
+  margin-right: 15px;
+  margin-bottom: 15px;
+
+  border: 2px solid aquamarine;
+}
+
+.photo-card:nth-child(4n) {
+  margin-right: 0;
+}
+
+.photo-card:nth-last-child(-n + 4) {
+  margin-bottom: 0;
+}
+
+.load-more {
+  font-size: large;
+  padding: 10px 20px;
+  display: flex;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: flex-end;
+}
