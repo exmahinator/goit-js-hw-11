@@ -2,11 +2,11 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { pictureClass } from './js/pictureClass.js';
 
 const BASIC_URL = 'https://pixabay.com/api/';
 
 axios.defaults.baseURL = BASIC_URL;
+
 // axios.defaults.params = {
 //   key: '29649041-262fdf0daa2a4569f2631b8dd',
 //   image_type: 'photo',
@@ -24,6 +24,10 @@ const allRefs = {
 };
 
 let page = 0;
+const bigPic = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 allRefs.search.addEventListener('submit', onSubmit);
 allRefs.load.addEventListener('click', loadMore);
@@ -79,7 +83,7 @@ function pictureMarkup({ data: { hits } }) {
         downloads,
       }) => {
         return `<div class="photo-card">
-    <img src="${webformatURL}" alt="${tags}" loading="lazy"/>
+    <a href="${largeImageURL}" class="link"><img src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
     <div class="info">
       <p class="info-item">
         <b>Likes</b>${likes}
@@ -99,6 +103,7 @@ function pictureMarkup({ data: { hits } }) {
     )
     .join('');
   allRefs.display.insertAdjacentHTML('beforeend', picturesList);
+  bigPic.refresh();
   return;
 }
 
@@ -110,6 +115,7 @@ async function loadMore() {
       }&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${++page}`
     );
     pictureMarkup(axiosResult);
+    bigPic.refresh();
     if (axiosResult.data.hits.length < 40) {
       Notiflix.Notify.info(
         `We're sorry, but you've reached the end of search results.`,
